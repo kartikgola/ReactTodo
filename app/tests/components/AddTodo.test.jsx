@@ -36,4 +36,16 @@ describe('AddTodo', () => {
         expect(spy).toNotHaveBeenCalled(todoText);
     });
 
+    it('should CALL handleAddTodo prop with VALID data', () => {
+        var todoText = 'Another todo task';
+        var spy = expect.createSpy();
+        var addTodo = TestUtils.renderIntoDocument(<AddTodo handleAddTodo={spy}/>);
+        var $el = $(ReactDOM.findDOMNode(addTodo));
+
+        addTodo.refs.todoText.value = todoText;
+        TestUtils.Simulate.submit($el.find('form')[0]);
+
+        expect(spy).toHaveBeenCalled(todoText);
+    });
+
 });

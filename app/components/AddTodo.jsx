@@ -8,8 +8,7 @@ let AddTodo = React.createClass({
         if ( todoText.length > 0 ){
             this.refs.todoText.value = '';
             this.props.handleAddTodo(todoText);
-        }
-        else
+        } else
             this.refs.todoText.focus();
     },
 
@@ -18,7 +17,7 @@ let AddTodo = React.createClass({
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" ref='todoText' placeholder='Add a new Todo' />
-                    <button type="submit" className="button">Submit</button>
+                    <button type="submit" className="button expanded">Submit</button>
                 </form>
             </div>
         );
