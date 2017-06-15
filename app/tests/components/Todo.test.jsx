@@ -8,7 +8,7 @@ let $ = require('jquery');
 let Todo = require('Todo');
 
 describe('Todo', () => {
-  it ('should exist', () => {
+  it('should exist', () => {
     expect(Todo).toExist();
   });
 });

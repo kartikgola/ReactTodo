@@ -17,7 +17,7 @@ describe('TodoList', () => {
     var todos = [
       {
         id : 1,
-        text : 'Do something'
+        text : 'Do something 1'
       },
       {
         id : 2,
