@@ -8,6 +8,11 @@ let $ = require('jquery');
 let TodoApp = require('TodoApp');
 
 describe('TodoApp', () => {
+
+  beforeEach( () => {
+    localStorage.removeItem('todos');
+  });
+
   it ('should exist', () => {
     expect(TodoApp).toExist();
   });
@@ -20,22 +25,49 @@ describe('TodoApp', () => {
     todoApp.handleAddTodo(todoText);
 
     expect(todoApp.state.todos[0].text).toBe(todoText);
+    expect(todoApp.state.todos[0].createdAt).toBeA('number');
   });
 
-  it('should TOGGLE completed value when handleToggle prop is called', () => {
+
+  it('should TOGGLE INCOMPLETE value when handleToggle prop is called', () => {
     
     var dummyTodo = {
       id : 121,
       text : 'Test toggle',
-      completed : false
+      completed : false,
+      createdAt : 0,
+      completedAt : undefined
     };
     var todoApp = TestUtils.renderIntoDocument(<TodoApp />);
     todoApp.setState({ todos : [dummyTodo] });
     
-    var initStatus = todoApp.state.todos[0].completed;
-    todoApp.handleToggle(todoApp.state.todos[0].id);
+    var initStatus = false; // false
+    todoApp.handleToggle(121);
 
-    expect(todoApp.state.todos[0].completed).toBe(!initStatus);
+    expect(todoApp.state.todos[0].completed).toBe(true); // completed == true
+    expect(todoApp.state.todos[0].completedAt).toBeA('number'); // typeof completedAt == number
   });
+
+
+  it('should TOGGLE COMPLETE value when handleToggle prop is called', () => {
+    
+    var dummyTodo = {
+      id : 121,
+      text : 'Test toggle',
+      completed : true,
+      createdAt : 0,
+      completedAt : 123
+    };
+    var todoApp = TestUtils.renderIntoDocument(<TodoApp />);
+    todoApp.setState({ todos : [dummyTodo] });
+    
+    var initStatus = true;
+    todoApp.handleToggle(121);
+
+    expect(todoApp.state.todos[0].completed).toBe(false); // completed == false
+    expect(todoApp.state.todos[0].completedAt).toNotExist();
+  });
+
+
 
 });

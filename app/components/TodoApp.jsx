@@ -1,6 +1,7 @@
 
 let React = require('react');
 let uuid = require('node-uuid');
+let moment = require('moment');
 
 let TodoList = require('TodoList');
 let AddTodo = require('AddTodo');
@@ -23,8 +24,10 @@ let TodoApp = React.createClass({
 
   handleToggle : function(id){
     var newTodos = this.state.todos.map((todo) => {
-      if ( todo.id == id )
+      if ( todo.id == id ){
         todo.completed = !todo.completed;
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
+      }
       return todo;
     });
 
@@ -38,7 +41,9 @@ let TodoApp = React.createClass({
         {
           id : uuid(),
           text : text,
-          completed : false
+          completed : false,
+          createdAt : moment().unix(),
+          completedAt : undefined
         }
       ]
     });
@@ -58,28 +63,15 @@ let TodoApp = React.createClass({
 
     return (
       <div>
+        <h1 className="page-title"> TodoApp </h1>
 
         <div className="row">
-          <div className="small-4 small-centered columns">
-            <h1 className="text-center"> TodoApp </h1>
-          </div>
-        </div>
-
-        <div>
-          <div className="small-4 small-centered columns">
-            <TodoSearch handleSearch={this.handleSearch}/>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="small-4 small-centered columns">
-            <TodoList todos={filteredTodos} handleToggle={this.handleToggle} />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="small-4 small-centered columns">
-            <AddTodo handleAddTodo={this.handleAddTodo} />
+          <div className="small-10 medium-6 small-centered columns">
+            <div className="container">
+              <TodoSearch handleSearch={this.handleSearch}/>
+              <TodoList todos={filteredTodos} handleToggle={this.handleToggle} />
+              <AddTodo handleAddTodo={this.handleAddTodo} />
+            </div>
           </div>
         </div>
 
