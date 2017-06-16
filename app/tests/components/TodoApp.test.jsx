@@ -22,4 +22,20 @@ describe('TodoApp', () => {
     expect(todoApp.state.todos[0].text).toBe(todoText);
   });
 
+  it('should TOGGLE completed value when handleToggle prop is called', () => {
+    
+    var dummyTodo = {
+      id : 121,
+      text : 'Test toggle',
+      completed : false
+    };
+    var todoApp = TestUtils.renderIntoDocument(<TodoApp />);
+    todoApp.setState({ todos : [dummyTodo] });
+    
+    var initStatus = todoApp.state.todos[0].completed;
+    todoApp.handleToggle(todoApp.state.todos[0].id);
+
+    expect(todoApp.state.todos[0].completed).toBe(!initStatus);
+  });
+
 });
