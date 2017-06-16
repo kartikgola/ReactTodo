@@ -1,6 +1,6 @@
 let React = require('react');
 
-let Search = React.createClass({
+let TodoSearch = React.createClass({
 
     handleSearch : function(e){
         e.preventDefault();
@@ -28,4 +28,4 @@ let Search = React.createClass({
 
 });
 
-module.exports = Search;
+module.exports = TodoSearch;
